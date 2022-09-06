@@ -47,7 +47,7 @@ const SoundButton = ({
           isMePlaying && styles.playing,
           isMePaused && styles.paused,
         ]}
-        rippleColor="#f0f"
+        rippleColor="#6ca0f5"
         rippleOpacity={0.9}
         rippleDuration={500}
         rippleContainerBorderRadius={30}
@@ -70,10 +70,10 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   playing: {
-    backgroundColor: '#f5a6f5',
+    backgroundColor: '#1b4b96',
   },
   paused: {
-    backgroundColor: 'yellow',
+    backgroundColor: '#5e94eb',
   },
   name: {
     color: 'white',
