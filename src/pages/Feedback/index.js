@@ -1,4 +1,5 @@
 import React, {useState} from 'react';
+import axios from 'axios';
 import {
   View,
   Text,
@@ -8,6 +9,8 @@ import {
   ActivityIndicator,
   StyleSheet,
 } from 'react-native';
+
+const earLandServer = 'https://earland.gbsayou.com';
 
 const styles = StyleSheet.create({
   container: {
@@ -33,13 +36,14 @@ const styles = StyleSheet.create({
     marginTop: 36,
     borderRadius: 4,
     alignItems: 'center',
-    backgroundColor: 'lightblue',
+    backgroundColor: '#5e94eb',
   },
   disabled: {
     opacity: 0.6,
   },
   submitText: {
     fontSize: 20,
+    color: 'white',
   },
   centeredView: {
     flex: 1,
@@ -53,13 +57,20 @@ const Feedback = ({navigation}) => {
   const [email, onChangeEmail] = useState();
   const [loading, setLoading] = useState(false);
 
-  const submit = () => {
-    console.log(email, value);
-    setLoading(true);
-    setTimeout(() => {
+  const submit = async () => {
+    try {
+      setLoading(true);
+      await axios.post(`${earLandServer}/feedback`, {
+        email,
+        value,
+      });
+    } catch (e) {
+      console.log('failed to send feedback');
+      console.log(e);
+    } finally {
       setLoading(false);
-    }, 2000);
-    // navigation.pop();
+      navigation.pop();
+    }
   };
 
   return (
@@ -81,6 +92,7 @@ const Feedback = ({navigation}) => {
         value={email}
         style={[styles.input, styles.email]}
         editable
+        autoCapitalize="none"
         autoCorrect={false}
         placeholder="Your email"
       />
